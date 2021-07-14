@@ -1,5 +1,5 @@
 PKG_NAME := fwts
-URL = https://github.com/intel/libva.git
+URL = https://git.launchpad.net/fwts
 ARCHIVES = 
 ARCHIVES_GIT = 
 
