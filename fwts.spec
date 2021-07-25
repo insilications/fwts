@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : fwts
-Version  : 21.06.00
-Release  : 304
-URL      : file:///aot/build/clearlinux/packages/fwts/fwts-v21.06.00.tar.gz
-Source0  : file:///aot/build/clearlinux/packages/fwts/fwts-v21.06.00.tar.gz
+Version  : 21.07.00
+Release  : 305
+URL      : file:///aot/build/clearlinux/packages/fwts/fwts-v21.07.00.tar.gz
+Source0  : file:///aot/build/clearlinux/packages/fwts/fwts-v21.07.00.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -134,7 +134,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1626223079
+export SOURCE_DATE_EPOCH=1627212267
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -215,7 +215,7 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1626223079
+export SOURCE_DATE_EPOCH=1627212267
 rm -rf %{buildroot}
 %make_install
 

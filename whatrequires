@@ -1,1 +1,5 @@
 # This file contains recursive sources that require this package
+fwts
+fwts-bin
+fwts-dev
+fwts-staticdev
