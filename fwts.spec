@@ -5,12 +5,15 @@
 %define keepstatic 1
 Name     : fwts
 Version  : 22.05.0.0
-Release  : 308
+Release  : 309
 URL      : file:///aot/build/clearlinux/packages/fwts/fwts-v22.05.0.0.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/fwts/fwts-v22.05.0.0.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: fwts-bin = %{version}-%{release}
+Requires: fwts-data = %{version}-%{release}
+Requires: fwts-man = %{version}-%{release}
 BuildRequires : autoconf-archive-dev
 BuildRequires : automake
 BuildRequires : automake-dev
@@ -72,6 +75,52 @@ BuildRequires : zlib-staticdev
 %description
 No detailed description available
 
+%package bin
+Summary: bin components for the fwts package.
+Group: Binaries
+Requires: fwts-data = %{version}-%{release}
+
+%description bin
+bin components for the fwts package.
+
+
+%package data
+Summary: data components for the fwts package.
+Group: Data
+
+%description data
+data components for the fwts package.
+
+
+%package dev
+Summary: dev components for the fwts package.
+Group: Development
+Requires: fwts-bin = %{version}-%{release}
+Requires: fwts-data = %{version}-%{release}
+Provides: fwts-devel = %{version}-%{release}
+Requires: fwts = %{version}-%{release}
+
+%description dev
+dev components for the fwts package.
+
+
+%package man
+Summary: man components for the fwts package.
+Group: Default
+
+%description man
+man components for the fwts package.
+
+
+%package staticdev
+Summary: staticdev components for the fwts package.
+Group: Default
+Requires: fwts-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the fwts package.
+
+
 %prep
 %setup -q -n fwts
 cd %{_builddir}/fwts
@@ -82,7 +131,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1658531390
+export SOURCE_DATE_EPOCH=1658531800
 ## altflags1f content
 ## altflags1
 unset CFLAGS
@@ -91,8 +140,9 @@ unset LDFLAGS
 export AR=/usr/bin/gcc-ar
 export RANLIB=/usr/bin/gcc-ranlib
 export NM=/usr/bin/gcc-nm
-export CFLAGS="-O3 -march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-avx2 -O3 -fno-tree-vectorize -fno-tree-loop-vectorize -fno-tree-slp-vectorize -mpopcnt -pipe"
-export KCFLAGS="-O3 -march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-avx2 -O3 -fno-tree-vectorize -fno-tree-loop-vectorize -fno-tree-slp-vectorize -mpopcnt -pipe"
+export CFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
+export CXXFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
+export LDFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
 export MAKEFLAGS=%{?_smp_mflags}
 %global _lto_cflags 1
 %global _disable_maintainer_mode 1
@@ -149,7 +199,7 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1658531390
+export SOURCE_DATE_EPOCH=1658531800
 rm -rf %{buildroot}
 ## altflags1f content
 ## altflags1
@@ -159,8 +209,9 @@ unset LDFLAGS
 export AR=/usr/bin/gcc-ar
 export RANLIB=/usr/bin/gcc-ranlib
 export NM=/usr/bin/gcc-nm
-export CFLAGS="-O3 -march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-avx2 -O3 -fno-tree-vectorize -fno-tree-loop-vectorize -fno-tree-slp-vectorize -mpopcnt -pipe"
-export KCFLAGS="-O3 -march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-avx2 -O3 -fno-tree-vectorize -fno-tree-loop-vectorize -fno-tree-slp-vectorize -mpopcnt -pipe"
+export CFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
+export CXXFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
+export LDFLAGS="-march=skylake -mtune=skylake -Wl,-O2 -falign-functions=32 -mprefer-vector-width=256 -fuse-ld=bfd -fno-semantic-interposition -fno-stack-protector -malign-data=cacheline -O2 -pipe"
 export MAKEFLAGS=%{?_smp_mflags}
 %global _lto_cflags 1
 %global _disable_maintainer_mode 1
@@ -216,3 +267,43 @@ export DESKTOP_SESSION=plasma
 
 %files
 %defattr(-,root,root,-)
+/usr/lib64/fwts/libfwts.la
+/usr/lib64/fwts/libfwtsacpica.la
+/usr/lib64/fwts/libfwtsiasl.la
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/fwts
+/usr/bin/kernelscan
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash-completion/completions/fwts
+/usr/share/fwts/clog.json
+/usr/share/fwts/klog.json
+/usr/share/fwts/olog.json
+/usr/share/fwts/syntaxcheck.json
+
+%files dev
+%defattr(-,root,root,-)
+/usr/lib64/fwts/libfwts.so
+/usr/lib64/fwts/libfwts.so.1
+/usr/lib64/fwts/libfwts.so.1.0.0
+/usr/lib64/fwts/libfwtsacpica.so
+/usr/lib64/fwts/libfwtsacpica.so.1
+/usr/lib64/fwts/libfwtsacpica.so.1.0.0
+/usr/lib64/fwts/libfwtsiasl.so
+/usr/lib64/fwts/libfwtsiasl.so.1
+/usr/lib64/fwts/libfwtsiasl.so.1.0.0
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/fwts-collect.1
+/usr/share/man/man1/fwts-frontend-text.1
+/usr/share/man/man1/fwts.1
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/fwts/libfwts.a
+/usr/lib64/fwts/libfwtsacpica.a
+/usr/lib64/fwts/libfwtsiasl.a
